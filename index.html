@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>일정 관리 달력</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header>
+      <div>
+        <h1>일정 관리 달력</h1>
+        <p>날짜를 클릭해 일정을 추가 / 편집하세요.</p>
+      </div>
+      <div class="header-actions">
+        <button id="prevMonth">‹ 이전</button>
+        <span id="currentMonth"></span>
+        <button id="nextMonth">다음 ›</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="calendar-container">
+        <div class="week-days"></div>
+        <div class="calendar-grid" id="calendarGrid"></div>
+      </section>
+
+      <section class="event-panel">
+        <h2>선택된 날짜</h2>
+        <div class="selected-date" id="selectedDate">선택된 날짜를 클릭해주세요.</div>
+        <div class="event-form">
+          <label>
+            제목
+            <input id="eventTitle" type="text" placeholder="일정 제목" />
+          </label>
+          <label>
+            시간
+            <input id="eventTime" type="time" />
+          </label>
+          <label>
+            설명
+            <textarea id="eventDesc" placeholder="상세 내용"></textarea>
+          </label>
+          <div class="form-actions">
+            <button id="saveEvent">저장</button>
+            <button id="clearEvent" class="secondary">삭제</button>
+          </div>
+        </div>
+        <div class="event-list">
+          <h3>해당 날짜 일정</h3>
+          <ul id="eventList"></ul>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
