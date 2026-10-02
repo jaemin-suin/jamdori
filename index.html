@@ -1,60 +1,134 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>일정 관리 달력</title>
-  <link rel="stylesheet" href="styles.css" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="부산여행 10/3~10/4 일정·준비물 체크리스트">
+<meta name="theme-color" content="#0a6cff">
+<meta name="robots" content="noindex,nofollow">
+<meta property="og:title" content="부산여행 일정 10/3~10/4">
+<meta property="og:description" content="일정 · 지도 링크 · 준비물 체크리스트">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>부산여행 10/3~10/4</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--tx:#1b1f24;--sub:#6b7480;--ac:#0a6cff;--line:#d9dee5;--k:#fee500;--n:#03c75a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111418;--card:#1b2027;--tx:#eef1f4;--sub:#9aa4b0;--ac:#6aa6ff;--line:#2d343d}}
+:root[data-theme="dark"]{--bg:#111418;--card:#1b2027;--tx:#eef1f4;--sub:#9aa4b0;--ac:#6aa6ff;--line:#2d343d}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:-apple-system,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;line-height:1.5}
+main{max-width:520px;margin:0 auto;padding:16px}
+h1{font-size:22px;margin:4px 0 2px}
+.sub{color:var(--sub);font-size:13px;margin-bottom:14px}
+h2{font-size:16px;margin:22px 0 10px}
+.day{display:inline-block;background:var(--ac);color:#fff;border-radius:999px;padding:2px 10px;font-size:13px;margin-right:6px}
+.tl{position:relative;margin:0;padding:0 0 0 22px;list-style:none}
+.tl:before{content:"";position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:var(--line)}
+.tl li{position:relative;background:var(--card);border-radius:12px;padding:12px 14px;margin-bottom:10px;box-shadow:0 1px 2px rgba(0,0,0,.06)}
+.tl li:before{content:"";position:absolute;left:-21px;top:18px;width:12px;height:12px;border-radius:50%;background:var(--ac);border:2px solid var(--bg)}
+.t{font-weight:700;font-size:13px;color:var(--ac)}
+.n{font-weight:700;font-size:16px}
+.d{color:var(--sub);font-size:13px}
+.btns{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.btns a{font-size:12px;text-decoration:none;color:#111;padding:5px 10px;border-radius:8px;font-weight:600}
+.k{background:var(--k)}.nv{background:var(--n);color:#fff!important}
+.alt{border:1px dashed var(--line);border-radius:10px;padding:8px 10px;margin-top:8px;font-size:13px}
+.alt b{color:var(--ac)}
+.route{background:var(--card);border-radius:12px;padding:12px 14px;font-size:14px;overflow-x:auto}
+.route span{white-space:nowrap}
+.tip{background:var(--card);border-left:4px solid var(--ac);border-radius:8px;padding:10px 12px;font-size:13px;margin-top:12px}
+.ck{background:var(--card);border-radius:12px;padding:12px 14px}
+.ck h3{font-size:13px;color:var(--sub);margin:10px 0 4px}
+.ck label{display:flex;align-items:center;gap:10px;padding:8px 0;font-size:16px;border-bottom:1px solid var(--line)}
+.ck input[type=checkbox]{width:22px;height:22px;accent-color:var(--ac);flex:none}
+.ck label.done span{text-decoration:line-through;color:var(--sub)}
+.bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:6px 0 2px}
+.bar i{display:block;height:100%;width:0;background:var(--n);transition:width .2s}
+.add{display:flex;gap:6px;margin-top:10px}
+.add input{flex:1;min-width:0;font-size:16px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--tx)}
+.add button,.rs{font-size:14px;padding:8px 12px;border:0;border-radius:8px;background:var(--ac);color:#fff;font-weight:600}
+.rs{background:var(--line);color:var(--tx);margin-top:8px}
+.tl li.done{opacity:.55}.tl li.done .n{text-decoration:line-through}
+.tl li.done:before{background:var(--n)}
+.hint{font-size:12px;color:var(--sub);margin-top:4px}
+</style>
 </head>
 <body>
-  <div class="app-shell">
-    <header>
-      <div>
-        <h1>일정 관리 달력</h1>
-        <p>날짜를 클릭해 일정을 추가 / 편집하세요.</p>
-      </div>
-      <div class="header-actions">
-        <button id="prevMonth">‹ 이전</button>
-        <span id="currentMonth"></span>
-        <button id="nextMonth">다음 ›</button>
-      </div>
-    </header>
+<main>
+<h1>🌊 부산여행</h1>
+<div class="sub">10/3(토) ~ 10/4(일) · 폰으로 보기 좋게 정리</div>
 
-    <main>
-      <section class="calendar-container">
-        <div class="week-days"></div>
-        <div class="calendar-grid" id="calendarGrid"></div>
-      </section>
+<h2>🗺️ 토요일 이동 경로 한눈에</h2>
+<div class="route">
+<span>구포역 🚆</span> → <span>구명역</span> → <span>서면역</span><br>
+→ <span>☕ LASOOP</span> → <span>🔐 덤앤더머</span> → <span>🍽️ 전포동 저녁</span> → <span>🎻 부산시민공원</span> → <span>🏨 구포WOW모텔</span>
+</div>
+<div class="btns" style="margin-top:8px">
+<a class="k" href="https://map.kakao.com/?sName=서면역&eName=부산시민공원">카카오 길찾기 서면역→시민공원</a>
+<a class="k" href="https://map.kakao.com/?sName=부산시민공원&eName=부산구포WOW모텔">카카오 길찾기 시민공원→숙소</a>
+</div>
 
-      <section class="event-panel">
-        <h2>선택된 날짜</h2>
-        <div class="selected-date" id="selectedDate">선택된 날짜를 클릭해주세요.</div>
-        <div class="event-form">
-          <label>
-            제목
-            <input id="eventTitle" type="text" placeholder="일정 제목" />
-          </label>
-          <label>
-            시간
-            <input id="eventTime" type="time" />
-          </label>
-          <label>
-            설명
-            <textarea id="eventDesc" placeholder="상세 내용"></textarea>
-          </label>
-          <div class="form-actions">
-            <button id="saveEvent">저장</button>
-            <button id="clearEvent" class="secondary">삭제</button>
-          </div>
-        </div>
-        <div class="event-list">
-          <h3>해당 날짜 일정</h3>
-          <ul id="eventList"></ul>
-        </div>
-      </section>
-    </main>
-  </div>
+<h2><span class="day">10/3 토</span>일정</h2>
+<ul class="tl">
+<li><div class="t">10:24 → 12:39</div><div class="n">구미역 → 구포역</div><div class="d">구포역 도착 후 지하철로 구명역 → 서면역 이동</div>
+<div class="btns"><a class="k" href="https://map.kakao.com/link/search/구포역">카카오 구포역</a><a class="nv" href="https://map.naver.com/p/search/구포역">네이버 구포역</a><a class="k" href="https://map.kakao.com/?sName=구포역&eName=서면역">카카오 길찾기 구포역→서면역</a></div></li>
 
-  <script src="script.js"></script>
+<li><div class="t">13:30</div><div class="n">☕ 카페 LASOOP</div><div class="d">부전동 168-273</div>
+<div class="btns"><a class="k" href="https://map.kakao.com/link/search/부전동 168-273 LASOOP">카카오</a><a class="nv" href="https://map.naver.com/p/search/부전동 168-273 LASOOP">네이버</a></div></li>
+
+<li><div class="t">14:30</div><div class="n">🔐 덤앤더머 방탈출카페 서면점</div><div class="d">부전동 217-1</div>
+<div class="btns"><a class="k" href="https://map.kakao.com/link/search/덤앤더머 방탈출카페 서면점">카카오</a><a class="nv" href="https://map.naver.com/p/search/덤앤더머 방탈출카페 서면점">네이버</a></div></li>
+
+<li><div class="t">저녁</div><div class="n">🍽️ 전포동 식당 (순위대로)</div>
+<div class="alt"><b>1순위</b> 부제비 · 전포동 680-4
+<div class="btns"><a class="k" href="https://map.kakao.com/link/search/전포동 부제비">카카오</a><a class="nv" href="https://map.naver.com/p/search/전포동 부제비">네이버</a></div></div>
+<div class="alt"><b>2순위</b> 버드나무집 · 전포동 662-6
+<div class="btns"><a class="k" href="https://map.kakao.com/link/search/전포동 버드나무집">카카오</a><a class="nv" href="https://map.naver.com/p/search/전포동 버드나무집">네이버</a></div></div>
+<div class="alt"><b>3순위</b> 포포포 · 전포동 684-4
+<div class="btns"><a class="k" href="https://map.kakao.com/link/search/전포동 포포포">카카오</a><a class="nv" href="https://map.naver.com/p/search/전포동 포포포">네이버</a></div></div></li>
+
+<li><div class="t">19:00</div><div class="n">🎻 클래식파크콘서트</div><div class="d">부산시민공원 · <b>돗자리 챙기기!</b></div>
+<div class="btns"><a class="k" href="https://map.kakao.com/link/search/부산시민공원">카카오</a><a class="nv" href="https://map.naver.com/p/search/부산시민공원">네이버</a></div></li>
+
+<li><div class="t">콘서트 후</div><div class="n">🏨 숙소 복귀 · 부산구포WOW모텔</div><div class="d">부산 북구 낙동대로1739번길 12</div>
+<div class="btns"><a class="k" href="https://map.kakao.com/link/search/부산 북구 낙동대로1739번길 12">카카오</a><a class="nv" href="https://map.naver.com/p/search/부산 북구 낙동대로1739번길 12">네이버</a></div></li>
+</ul>
+
+<h2><span class="day">10/4 일</span>일정</h2>
+<ul class="tl">
+<li><div class="t">점심</div><div class="n">👨‍👩‍👦 외삼촌 &amp; 사촌형과 점심</div><div class="d">식당 미정 · 정해지면 지도에서 검색</div>
+<div class="btns"><a class="k" href="https://map.kakao.com/">카카오맵 열기</a><a class="nv" href="https://map.naver.com/">네이버지도 열기</a></div></li>
+</ul>
+
+<h2>🎒 준비물 체크리스트</h2>
+<div class="ck">
+<div style="font-size:13px"><b id="cnt">0/0</b> 챙김</div><div class="bar"><i id="bar"></i></div>
+<div id="list"></div>
+<div class="add"><input id="newi" placeholder="준비물 추가 (예: 우산)" enterkeyhint="done"><button id="addb" type="button">추가</button></div>
+<button class="rs" id="rs" type="button">체크 모두 해제</button>
+<div class="hint">체크 상태는 이 폰 브라우저에 저장돼요. 일정 카드를 탭하면 완료 표시가 돼요.</div>
+</div>
+
+<div class="tip">💡 버튼이 안 열리면 지도 앱에서 장소명을 직접 검색하세요. 저녁은 대기 시간이 길 수 있으니 콘서트(19:00) 전에 여유 있게 도착하는 걸 추천해요.</div>
+</main>
+<script>
+(function(){
+var base=[["꼭 챙길 것",["청첩장","돗자리","비염약","엽산"]],["전자기기",["에어팟","충전기","보조배터리"]]];
+var K="busan_trip_v1",st={checked:{},custom:[],done:{}};
+try{var r=localStorage.getItem(K);if(r){var o=JSON.parse(r);st.checked=o.checked||{};st.custom=o.custom||[];st.done=o.done||{}}}catch(e){}
+function save(){try{localStorage.setItem(K,JSON.stringify(st))}catch(e){}}
+var list=document.getElementById("list");
+function row(name){var l=document.createElement("label");var c=document.createElement("input");c.type="checkbox";c.checked=!!st.checked[name];var sp=document.createElement("span");sp.textContent=name;if(c.checked)l.className="done";c.onchange=function(){st.checked[name]=c.checked;l.className=c.checked?"done":"";save();upd()};l.appendChild(c);l.appendChild(sp);return l}
+function render(){list.innerHTML="";base.forEach(function(g){var h=document.createElement("h3");h.textContent=g[0];list.appendChild(h);g[1].forEach(function(n){list.appendChild(row(n))})});
+if(st.custom.length){var h=document.createElement("h3");h.textContent="추가한 것";list.appendChild(h);st.custom.forEach(function(n){list.appendChild(row(n))})}upd()}
+function all(){var a=[];base.forEach(function(g){a=a.concat(g[1])});return a.concat(st.custom)}
+function upd(){var a=all(),d=a.filter(function(n){return st.checked[n]}).length;document.getElementById("cnt").textContent=d+"/"+a.length;document.getElementById("bar").style.width=(a.length?d*100/a.length:0)+"%"}
+document.getElementById("addb").onclick=function(){var i=document.getElementById("newi"),v=i.value.trim();if(v&&all().indexOf(v)<0){st.custom.push(v);i.value="";save();render()}};
+document.getElementById("newi").onkeydown=function(e){if(e.key==="Enter")document.getElementById("addb").click()};
+document.getElementById("rs").onclick=function(){st.checked={};save();render()};
+var lis=document.querySelectorAll(".tl li");
+lis.forEach(function(li,i){var id="s"+i;if(st.done[id])li.classList.add("done");li.addEventListener("click",function(e){if(e.target.closest("a"))return;li.classList.toggle("done");st.done[id]=li.classList.contains("done");save()})});
+render();
+})();
+</script>
 </body>
 </html>
